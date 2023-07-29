@@ -1,96 +1,92 @@
-#include <iostream>
-#include <string>
+#include<iostream>
+#include<string>
 using namespace std;
-
-class GiangVien {
-private:
-    string ten;
-    int tuoi;
-    char bc;
-    string chuyennganh;
-    float bl;
-
-public:
-    void nhap() {
-        cout << "\nnhap ho ten  ";
-        cin.ignore();
-        getline(cin, ten);
-        cout << "\n nhap tuoi ";
-        cin >> tuoi;
-        cout << "\n nhap bang cap ";
-        cin >> bc;
-        cout << " \nnhap chuyen nganh ";
-        cin.ignore();
-        getline(cin, chuyennganh);
-        cout << " \nnhap bac luong ";
-        cin >> bl;
-    }
-
-    void xuat() {
-        cout << " ho va ten " << ten
-             << " tuoi " << tuoi
-             << " bang cap " << bc
-             << " chuyen nganh " << chuyennganh
-             << " bac luong " << bl << endl
-             << " luong co ban " << this->tinhlcb() << endl;
-    }
-
-    float tinhlcb() {
-        return bl * 610;
-    }
-};
-
-void nhapdanhsach(GiangVien a[], int n) {
-    cout << "Nhap danh sach " << n << " Giang Vien" << endl;
-    for (int i = 0; i < n; i++) {
-        cout << "Nhap thong tin giang vien thu " << i + 1 << endl;
-        a[i].nhap();
-    }
+class giangvien{
+	private:
+	   char ten[30];
+	   int tuoi;
+	   char bc;
+	   char chuyennganh[15];
+	   float bl ;
+	public:
+	    nhap(){
+	    	cout<<"\n nhap ten giang vien ";
+	    	fflush(stdin); 
+			cin.getline(ten,30);
+			cout<<"\nnhap tuoi giang vien " ;
+			cin>>tuoi;
+			cout<<"\n nhap bang cap";
+			cin>>bc; 
+			cout<<" \nnhap chuyen nganh ";
+			fflush(stdin); 
+			cin.getline(chuyennganh,15);
+			cout<<" \nnhap bac luong ";
+			cin>>bl;			 
+		} 
+		xuat(){
+		   cout<<" ho ten: "<<ten
+		       <<" tuoi: "<<tuoi
+			   <<" bac luong "<<bl
+			   <<" bang cap "<<bc
+			   <<" luong co ban "<<this->tinhlcb()
+			   <<" chuyen nganh "<<chuyennganh<<endl;			
+		}
+		float tinhlcb(){
+			return bl*610;
+		}
+	
+       char* getchuyenNganh() {
+          return chuyennganh;
+      }
+}; 
+void nhap(giangvien a[],int &n){
+	for(int i=0;i<n;i++){
+		cout<<" nhap giang vien thu "<<i+1<<endl;
+		a[i].nhap();
+	}
+}
+void xuat(giangvien a[], int &n){
+	for(int i=0;i<n;i++){
+		cout<<" giang vien thu: "<<i+1<<endl;
+		a[i].xuat();
+	}
+}
+void luonggiangvien(giangvien a[],int n){
+	cout<<" danh sach giang vien co luong nho hon  2000 la "<<endl;
+	bool found=false;
+	for(int i=0;i<n;i++){
+		if(a[i].tinhlcb()<2000){
+			a[i].xuat(); 
+			found= true;
+		}
+		
+	}
+	if(!found){
+		cout<<" khong co giang vien nao co luong tren 2000"<<endl;
+	}
 }
 
-void xuatdanhsach(GiangVien a[], int n) {
-    cout << "Xuat danh sach " << n << " Giang Vien" << endl;
+void sapxepchuyennganh(giangvien a[], int n) {
+    cout << "Danh sach giang vien theo thu tu tu a->z " << endl;
     for (int i = 0; i < n; i++) {
-        cout << "Thong tin giang vien thu " << i + 1 << endl;
-        a[i].xuat();
-    }
-}
-
-void xuatluonggiangvien(GiangVien a[], int n) {
-    bool found = false;
-    cout << " Giang vien co luong nho hon 2000 : " << endl;
-    for (int i = 0; i < n; i++) {
-        if (a[i].tinhlcb() < 2000) {
-            a[i].xuat();
-            found = true;
+        for (int j = i + 1; j < n; j++) {
+            if (a[i].getchuyenNganh() < a[j].getchuyenNganh()) {
+                swap(a[i], a[j]);
+            }
         }
+        
     }
-    if (!found) {
-        cout << " Khong co giang vien co luong nho hon 2000 " << endl;
-    }
-}
-void xuatGiangVienCungChuyenNganh(GiangVien a[], int n, const string& chuyennganh) {
-    bool found = false;
-    cout << "Danh sach giang vien co cung chuyen nganh '" << chuyennganh << "':" << endl;
-    for (int i = 0; i < n; i++) {
-        if (a[i].chuyennganh == chuyennganh) {
-            a[i].xuat();
-            found = true;
-        }
-    }
-    if (!found) {
-        cout << "Khong co giang vien co cung chuyen nganh '" << chuyennganh << "'" << endl;
-    }
+    xuat(a,n); 
 }
 
 int main() {
     int n;
     cout << "Nhap so luong Giang Vien: ";
     cin >> n;
-    GiangVien a[n];
-    nhapdanhsach(a, n);
-    xuatdanhsach(a, n);
-    xuatluonggiangvien(a, n);
-
+    giangvien a[n];
+    nhap(a, n);
+    xuat(a, n);
+    luonggiangvien(a, n);
+    sapxepchuyennganh(a, n);
     return 0;
 }
