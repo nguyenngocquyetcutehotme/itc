@@ -7,6 +7,17 @@ class hocsinh{
 		int tuoi;
 		float diemtb;
 	public:
+		hocsinh(){
+			strcpy(ten,"");
+			tuoi=0;
+			diemtb=0.0;
+		}
+		hocsinh(char* ten,int tuoi,float diemtb){
+			strcpy(this->ten,ten);
+			this->tuoi=tuoi;
+			this->diemtb=diemtb;
+			
+		}
 		nhap(){
 			cout<<" \nnhap ten ";
 			fflush(stdin);
