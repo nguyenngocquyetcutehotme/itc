@@ -1,86 +1,87 @@
 #include<iostream>
 #include<string.h>
-#include <algorithm>
 using namespace std;
-class GiaoVien {
+class GIAOVIEN{
 	private:
-		char ht[30];
-		int t;
-		char bc[15];
-		char chuyennganh[20];
-		float bl;
+	    char ten[30];
+	    int tuoi;
+	    char bangcap[15];
+	    char chuyennganh[20];
+	    float bl;
 	public:
-		friend istream& operator>>(istream&in,GiaoVien &gv){
-			cout<< "nhap ho ten: ";
+		friend istream&operator>>(istream&in,GIAOVIEN &gv){
+			cout<<"\tnhap ho va ten ";
 			fflush(stdin);
-			in.getline(gv.ht,30);
-			
-			cout<< "nhap tuoi: ";
-			in>>gv.t;
-			
-			cout<< "nhap bang cap: ";
+			in.getline(gv.ten,30);
+			cout<<"\tnhap tuoi ";
+			in>>gv.tuoi;
+			cout<<"\tnhap bang cap ";
 			fflush(stdin);
-			in.getline(gv.bc,15);
-			
-			cout<< "nhap chuyen nganh: ";
+			in.getline(gv.bangcap,15);
+			cout<<"\tnhap chuyen nganh ";
 			fflush(stdin);
 			in.getline(gv.chuyennganh,20);
-			
-			cout<< "nhap bac luong: ";
+			cout<<"\tnhap bac luong cua giang vien ";
 			in>>gv.bl;
 			
 			return in;
 		}
-		friend ostream& operator<<(ostream&out,GiaoVien gv){
-			out<<" Ho ten "<<gv.ht
-			   <<" Tuoi "<<gv.t
-			   <<" Bang cap "<<gv.bc
-			   <<" Chuyen nganh "<<gv.chuyennganh
-			   <<" luong co ban "<<gv.tinhTienLuong() 
-			   <<" Bac luong "<<gv.bl<<endl; 
-			  
-			
-			return out;
+		friend ostream&operator<<(ostream&out,GIAOVIEN gv){
+			out<<" Ho Ten "<<gv.ten
+			   <<" Tuoi "<<gv.tuoi
+			   <<" Bang Cap "<<gv.bangcap
+			   <<" Chuyen Nganh "<<gv.chuyennganh
+			   <<" Bac Luong "<<gv.bl
+			   <<" Luong Co ban "<<gv.luongcoban()<<endl;
 		}
-		float tinhTienLuong(){
+		float luongcoban(){
 			return bl*610;
 		}
-		bool operator==( GiaoVien& gv){
-			return strcmp(this->bc ,gv.bc)==0;
-		} 
-		char*getbc(){
-			return bc;
+		bool operator ==(GIAOVIEN gv){
+			return strcmp(this->bangcap,gv.bangcap)==0;
 		}
-    
-};
-bool compareBangCap( GiaoVien& gv1,  GiaoVien& gv2) {
-    return strcmp(gv1.getbc(), gv2.getbc()) < 0;
-}
-	
-
-int main(){
-
-	int n;
-	cout<<"\nnhap so luong giao vien ";
-	cin>>n;
-	
-		GiaoVien danhsach[n]; 
+		bool operator >(GIAOVIEN gv){
+			return strcmp(this->bangcap,gv.bangcap)==1;
+		}
+	 
+}; 
+void nhap(GIAOVIEN *gv,int n){
 	for(int i=0;i<n;i++){
-		cout<<" \nnhap thong tin cua giao vien thu "<<i+1<<endl;
-		cin>>danhsach[i]; 
-	} 
-	cout<<"\nDanh sach "<< n <<" giao vien "<<endl;
-	for(int i=0;i<n;i++){
-		cout<<danhsach[i];
+		cout<<"\nnhap giao vien thu "<<i+1<<endl;
+		cin>>gv[i];
+		
 	}
-	 sort(danhsach, danhsach + n, compareBangCap);
-    cout << "Danh sach giao vien sau khi sap xep theo bang cap:" << endl;
-    for (int i = 0; i < n; i++) {
-        cout<<danhsach[i];
-    }
+}
+void xuat(GIAOVIEN *gv,int n){
+	for(int i=0;i<n;i++){
+		cout<<" thong tin giao vien thu "<<i+1<<endl;
+		cout<<gv[i];
+	}
+}
+void sapxep(GIAOVIEN *gv,int n){
+	for(int i=0;i<n;i++){
+		for(int j=i+1;j<n;j++){
+			if(gv[i]>gv[j]){
+				swap(gv[i],gv[j]);
+			}
+		}
+	}
+	xuat(gv, n);
+}
+int main(){
+    int n;
+    cout << "NHAP SO LUONG GIAO VIEN: ";
+    cin >> n;
 
-    return 0;
+  GIAOVIEN* gv = new GIAOVIEN[n];
+    nhap(gv, n);
+
+    cout << "DANH SACH GIANG VIEN:" << endl;
+    xuat(gv, n);
+    cout<<"\n"; 
+
+    cout << "DANH SACH GIANG VIEN SAU KHI SAP XEP THEO BANG CAP:" << endl;
+    sapxep(gv, n);
+ 
 }
 
-
- 
