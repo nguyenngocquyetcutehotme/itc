@@ -65,7 +65,6 @@ void luonggiangvien(giangvien a[],int n){
 		cout<<" khong co giang vien nao co luong tren 2000"<<endl;
 	}
 }
-
 void sapxepchuyennganh(giangvien a[], int n) {
     cout << "Danh sach giang vien theo thu tu tu a->z " << endl;
     for (int i = 0; i < n; i++) {
@@ -74,7 +73,6 @@ void sapxepchuyennganh(giangvien a[], int n) {
                 swap(a[i], a[j]);
             }
         }
-        
     }
     xuat(a,n); 
 }

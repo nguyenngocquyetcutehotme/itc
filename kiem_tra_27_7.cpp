@@ -83,7 +83,6 @@ void sapxep(hocsinh a[], int n) {
                 swap(a[i], a[j]);
             }
         }
-        
     }
     xuaths(a,n); 
 }
@@ -96,7 +95,6 @@ void capNhatDiemTB(hocsinh a[], int n, const char* tenTimKiem, float diemMoi) {
             break;
         }
     }
-
     if (daTimThay) {
         cout << "Da cap nhat diem trung binh cho sinh vien " << tenTimKiem << " thanh " << diemMoi << "." << endl;
     }
